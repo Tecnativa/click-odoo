@@ -293,6 +293,12 @@ As a convenience ``click_odoo`` exports the ``odoo`` namespace, so
 ``from click_odoo import odoo`` is an alias for ``import odoo`` (>= 10)
 or ``import openerp as odoo`` (< 10).
 
+click_odoo.parse_version
+------------------------
+
+A shortcut for `odoo.tools.parse_version`, which is the supported way of
+comparing release versions in Odoo.
+
 OdooEnvironment context manager (experimental)
 ----------------------------------------------
 

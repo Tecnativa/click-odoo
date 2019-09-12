@@ -19,6 +19,7 @@ except ImportError:
     except ImportError:
         raise ImportError("No module named odoo nor openerp")
 
+parse_version = odoo.tools.parse_version
 _logger = logging.getLogger(__name__)
 
 
@@ -49,7 +50,7 @@ def OdooEnvironment(database, rollback=False, **kwargs):
                 else:
                     cr.commit()
         finally:
-            if odoo.release.version_info[0] < 10:
+            if parse_version(odoo.release.version) < parse_version("10.0"):
                 odoo.modules.registry.RegistryManager.delete(database)
             else:
                 odoo.modules.registry.Registry.delete(database)

@@ -8,7 +8,7 @@ from contextlib import closing
 import click
 from click.decorators import _param_memo  # XXX undocumented click internal
 
-from .env import OdooEnvironment, odoo
+from .env import OdooEnvironment, odoo, parse_version
 
 _logger = logging.getLogger(__name__)
 
@@ -112,7 +112,7 @@ class env_options(object):
         return value
 
     def _fix_odoo_logging(self):
-        if odoo.release.version_info[0] < 9:
+        if parse_version(odoo.release.version) < parse_version("9.0"):
             handlers = logging.getLogger().handlers
             if handlers and len(handlers) == 1:
                 handler = handlers[0]

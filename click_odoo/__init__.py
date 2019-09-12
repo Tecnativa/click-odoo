@@ -5,3 +5,4 @@ from .env_options import env_options  # noqa
 from .env import OdooEnvironment  # noqa
 from .env import odoo  # noqa
 from .env import odoo_bin  # noqa
+from .env import parse_version  # noqa

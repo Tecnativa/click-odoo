@@ -14,7 +14,7 @@ import pytest
 from click.testing import CliRunner
 
 import click_odoo
-from click_odoo import OdooEnvironment, console, odoo, odoo_bin
+from click_odoo import OdooEnvironment, console, odoo, odoo_bin, parse_version
 from click_odoo.cli import main
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -446,3 +446,17 @@ def test_env_options_addons_path():
     cmd = ["click-odoo", "--addons-path", addons_path, "--", script]
     r = subprocess.call(cmd)
     assert r == 0
+
+
+def test_parse_version():
+    versions = (
+        ("4.2", "4.2.3.4", "5.0.0-alpha", "5.0.0-rc1",
+         "5.0.0-rc1.1", "5.0.0_rc2", "5.0.0_rc3", "5.0.0",
+         "12.0", "saas~12.5", "13.0"),
+        ('5.0.0-0_rc3', '5.0.0-1dev', '5.0.0-1'),
+    )
+    for sequence in versions:
+        smaller = "0"
+        for bigger in sequence:
+            assert parse_version(smaller) < parse_version(bigger)
+            smaller = bigger
